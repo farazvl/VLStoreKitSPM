@@ -1,4 +1,4 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 5.8.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -16,7 +16,7 @@ let package = Package(
             targets: ["VLStoreKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/farazvl/VLBeaconSwift.git", from: "1.0.0"),
+        .package(url: "https://github.com/farazvl/VLBeaconSwift.git", branch: "main"),
         .package(url: "https://github.com/socketio/socket.io-client-swift.git", branch: "master")
     ],
     targets: [

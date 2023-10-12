@@ -158,7 +158,7 @@ struct NetworkRequest {
 			}
 		}
 		
-		debugPrint(curlString)
+		print(curlString)
 //#endif
 	}
 	
