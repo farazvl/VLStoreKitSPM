@@ -62,11 +62,15 @@ extension VLStoreKitManager {
     //MARK: StoreKit Delegate methods
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])
     {
+        print("TRANSACTION PROCESSING paymentQueue")
         if !isOnlyFetchingProductDetails {
             var isAllRestoreTransaction = true
             for transaction in transactions {
                 if transaction.transactionState == SKPaymentTransactionState.failed || transaction.transactionState == SKPaymentTransactionState.purchasing {
                     isAllRestoreTransaction = false
+                    
+                    print("TRANSACTION PROCESSING paymentQueue failed")
+                    
                     break
                 }
             }
@@ -85,11 +89,13 @@ extension VLStoreKitManager {
                 switch transaction.transactionState
                 {
                 case .purchasing:
+                    print("TRANSACTION PROCESSING paymentQueue purchasing")
                     if storeKitDelegate != nil {
                         storeKitDelegate?.transactionInProcess()
                     }
                     break
                 case .purchased:
+                    print("TRANSACTION PROCESSING paymentQueue purchased")
                     var receiptData:NSData?
                     if let receiptURL = Bundle.main.appStoreReceiptURL {
                         receiptData = NSData(contentsOf:receiptURL)
@@ -135,6 +141,7 @@ extension VLStoreKitManager {
                     }
                     break
                 case .failed:
+                    print("TRANSACTION PROCESSING paymentQueue failed1")
                     SKPaymentQueue.default().finishTransaction(transaction)
                     self.isProductPurchased = false
                     if !self.isFromSubscriptionFlow {
@@ -150,6 +157,7 @@ extension VLStoreKitManager {
                    
                     break
                 case .restored :
+                    print("TRANSACTION PROCESSING paymentQueue restored")
                     if !isMakingPurchase {
                         let receiptURL:URL? = Bundle.main.appStoreReceiptURL
                         if receiptURL != nil && !self.isProductPurchased {
