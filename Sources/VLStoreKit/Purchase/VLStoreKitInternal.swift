@@ -195,8 +195,6 @@ final class VLStoreKitInternal:APIService , VLBeaconEventProtocols{
         }
     }
     
-    @available(tvOS, introduced: 11.0, obsoleted: 15.0, message: "No longer needed")
-    @available(iOS, introduced: 11.0, obsoleted: 15.0, message: "No longer needed")
     internal func finishInCompleteTransactions() {
         self.finishTransactions()
     }

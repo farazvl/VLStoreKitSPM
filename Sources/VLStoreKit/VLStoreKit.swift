@@ -180,8 +180,6 @@ final public class VLStoreKit:NSObject {
     /**
      This should be called to finish any transaction which was not finished earlier
      */
-    @available(tvOS, introduced: 11.0, obsoleted: 15.0, message: "This is no longer needed in OS 15 and above as we have moved to storekit 2 apis")
-    @available(iOS, introduced: 11.0, obsoleted: 15.0, message: "This is no longer needed in OS 15 and above as we have moved to storekit 2 apis")
     public func finishInCompleteTransactions() {
         VLStoreKitInternal.shared.finishInCompleteTransactions()
     }

@@ -7,8 +7,6 @@
 
 import Foundation
 
-@available(tvOS, introduced: 11.0, obsoleted: 15.0, message: "No longer needed")
-@available(iOS, introduced: 11.0, obsoleted: 15.0, message: "No longer needed")
 extension VLStoreKitInternal:VLStoreKitFlowDelegate {
     
     internal func listenForCallback() {

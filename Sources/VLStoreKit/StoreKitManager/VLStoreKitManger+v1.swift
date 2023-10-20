@@ -425,6 +425,7 @@ extension VLStoreKitManager {
     }
     
     internal func finishInCompleteTransactions() {
+        print("Pending transactions count ----> \(SKPaymentQueue.default().transactions)")
         finishTransactions(tranasctions: SKPaymentQueue.default().transactions)
     }
     
