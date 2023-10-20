@@ -102,9 +102,9 @@ extension VLStoreKitManager {
                     }
                     else {
                         if !checkingRestorePurchaseOnFirstLaunch && isFromSubscriptionFlow {
-                            self.isProductPurchased = true
-                            getTransaction(transaction: transaction, andReceiptData:receiptData)
                             SKPaymentQueue.default().finishTransaction(transaction)
+                            self.isProductPurchased = true
+                            getTransaction(transaction: transaction, andReceiptData: receiptData)
                         }
                         else {
                             SKPaymentQueue.default().finishTransaction(transaction)
@@ -148,6 +148,8 @@ extension VLStoreKitManager {
                     if !isMakingPurchase {
                         let receiptURL:URL? = Bundle.main.appStoreReceiptURL
                         if receiptURL != nil && !self.isProductPurchased {
+                            SKPaymentQueue.default().finishTransaction(transaction)
+                            
                             self.isProductPurchased = true
                             checkingRestorePurchaseOnFirstLaunch = false
                             if !isFromSubscriptionFlow {
@@ -229,6 +231,7 @@ extension VLStoreKitManager {
                     updatedTransactionList.remove(at: transactionTuple.1)
                     finishTransactions(tranasctions: updatedTransactionList)
                     if let receiptURL = Bundle.main.appStoreReceiptURL, transactionTuple.0.transactionState != .failed {
+                        SKPaymentQueue.default().finishTransaction(transactionTuple.0)
                         getTransaction(transaction: transactionTuple.0, andReceiptData: NSData(contentsOf: receiptURL))
                     }
                     else {
@@ -271,7 +274,7 @@ extension VLStoreKitManager {
         switch transaction.transactionState
         {
         case .purchased:
-            if transaction.transactionIdentifier != nil || receiptData != nil {
+            if transaction.transactionIdentifier != nil {
                 if storeKitDelegate != nil {
                     isFromSubscriptionFlow = false
                     storeKitDelegate?.transactionFinished(storeKitModel: VLStoreKitModel(withTransactionId:transaction.transactionIdentifier, originalTransactionId: transaction.original?.transactionIdentifier, productId: transaction.payment.productIdentifier, transactionDate: transaction.transactionDate, transactionEndDate: nil, transactionReceipt: nil))
@@ -306,7 +309,6 @@ extension VLStoreKitManager {
             else {
                 restoreTransactionDict = userInfo
             }
-            SKPaymentQueue.default().finishTransaction(transaction)
             break
         case .deferred:
             break

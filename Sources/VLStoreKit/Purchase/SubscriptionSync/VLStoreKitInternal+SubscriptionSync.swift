@@ -23,10 +23,10 @@ extension VLStoreKitInternal {
     }
     
     internal func reSyncFailedTransactionalPurchase(userIdentifier:String, syncComplete:(() -> Void)? = nil) {
-        guard let reSyncTransactions = VLDBManager.sharedInstance.fetchAllTransactionsFromDatabase() else { return }
-        let filteredTransactions = reSyncTransactions.filter({$0.contentId != nil})
-        guard filteredTransactions.count > 0 else { return }
-        self.reSyncTransactionalPurchase(transactionalData: filteredTransactions, syncComplete: syncComplete)
+//        guard let reSyncTransactions = VLDBManager.sharedInstance.fetchAllTransactionsFromDatabase() else { return }
+//        let filteredTransactions = reSyncTransactions.filter({$0.contentId != nil})
+//        guard filteredTransactions.count > 0 else { return }
+//        self.reSyncTransactionalPurchase(transactionalData: filteredTransactions, syncComplete: syncComplete)
     }
 
     private func updateServerWithSubscriptionStatus(storeKitModel:VLStoreKitModel) {
