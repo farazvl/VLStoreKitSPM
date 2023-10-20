@@ -102,9 +102,14 @@ extension VLStoreKitManager {
                     }
                     else {
                         if !checkingRestorePurchaseOnFirstLaunch && isFromSubscriptionFlow {
+                            print("TRANSACTION PURCHASED FINISHED CALLING")
                             SKPaymentQueue.default().finishTransaction(transaction)
                             self.isProductPurchased = true
-                            getTransaction(transaction: transaction, andReceiptData: receiptData)
+                            
+                            DispatchQueue.main.async {
+                                print("TRANSACTION PURCHASED CALLING DELEGATE")
+                                self.getTransaction(transaction: transaction, andReceiptData: receiptData)
+                            }
                         }
                         else {
                             SKPaymentQueue.default().finishTransaction(transaction)
@@ -277,6 +282,7 @@ extension VLStoreKitManager {
             if transaction.transactionIdentifier != nil {
                 if storeKitDelegate != nil {
                     isFromSubscriptionFlow = false
+                    print("TRANSACTION PURCHASED CALLED DELEGATE")
                     storeKitDelegate?.transactionFinished(storeKitModel: VLStoreKitModel(withTransactionId:transaction.transactionIdentifier, originalTransactionId: transaction.original?.transactionIdentifier, productId: transaction.payment.productIdentifier, transactionDate: transaction.transactionDate, transactionEndDate: nil, transactionReceipt: nil))
                 }
             }
