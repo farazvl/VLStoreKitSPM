@@ -69,6 +69,11 @@ class VLStoreKitManager:NSObject, SKProductsRequestDelegate, SKPaymentTransactio
     
     private override init() {
         super.init()
+        
+        self.setupDelegate()
+    }
+    
+    private func setupDelegate() {
         if #available(iOS 15.0, tvOS 15.0, *) {
             if VLStoreKitInternal.shared.supportedAPIVersion == .V2 {
                 self.initaliseBasicSettings()
@@ -106,8 +111,9 @@ class VLStoreKitManager:NSObject, SKProductsRequestDelegate, SKPaymentTransactio
         }
     }
     
-    func productsRequest (_ request: SKProductsRequest, didReceive response: SKProductsResponse)
-    {
+    func productsRequest (_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        self.setupDelegate()
+        
         if !isOnlyFetchingProductDetails {
             let count : Int = response.products.count
             if (count > 0)
