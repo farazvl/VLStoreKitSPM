@@ -19,7 +19,7 @@ internal extension VLBeaconEventProtocols {
         
         let userEventBody = UserBeaconEventStruct(eventName: eventName, source: "VLStoreKit", eventData: StoreKitPayload(planId: productDetails?.productId, planName: productDetails?.productName, planDesc: productDetails?.productDesc, planType: productDetails?.planType , paymentMethod: productDetails?.paymentMethod, promotionCode: productDetails?.promotionCode, discountAmount: productDetails?.discountAmount, purchaseType: productDetails?.purchaseType, orderSubTotalAmount: productDetails?.orderSubTotalAmount, orderTaxAmount: productDetails?.orderTaxAmount, orderTotalAmount: productDetails?.orderTotalAmount, currencyCode: productDetails?.currencyCode, transactionId: transactionId), additionalData: additionalData)
         
-        VLBeacon.sharedInstance.authorizationToken = VLStoreKitInternal.shared.authorizationToken
-        VLBeacon.sharedInstance.triggerBeaconEvent(userEventBody)
+        VLBeacon.getInstance().authorizationToken = VLStoreKitInternal.shared.authorizationToken
+        VLBeacon.getInstance().triggerBeaconEvent(userEventBody)
     }
 }
