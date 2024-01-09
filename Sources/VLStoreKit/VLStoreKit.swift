@@ -20,7 +20,7 @@ final public class VLStoreKit:NSObject {
     
     public var enableDebugLogs: Bool = false{
         didSet{
-            VLBeacon.sharedInstance.debugLogs = enableDebugLogs
+            VLBeacon.getInstance().debugLogs = enableDebugLogs
         }
     }
     public weak var storeKitDelegate:VLStoreKitDelegate? {
