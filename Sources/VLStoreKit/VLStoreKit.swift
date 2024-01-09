@@ -12,15 +12,17 @@ final public class VLStoreKit:NSObject {
         return instance
     }()
         
-    public init(withAPIVersion apiVersion:APIVersion = .V1)
+    public init(withAPIVersion apiVersion:APIVersion = .V1, beacon: VLBeacon? = nil)
     {
         self.setAPIVersion = apiVersion
+        
+        VLStoreKitBeaconHelper.setUpBecaonInstance(sharedBeaconInstance: beacon)
         super.init()
     }
     
     public var enableDebugLogs: Bool = false{
         didSet{
-            VLBeacon.sharedInstance.debugLogs = enableDebugLogs
+            VLStoreKitBeaconHelper.getInstance().debugLogs = enableDebugLogs
         }
     }
     public weak var storeKitDelegate:VLStoreKitDelegate? {
